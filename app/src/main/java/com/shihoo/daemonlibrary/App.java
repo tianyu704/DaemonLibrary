@@ -21,19 +21,20 @@ public class App extends Application {
 
 
         String processName = ApkHelper.getProcessName(this.getApplicationContext());
-        if ("com.shihoo.daemonlibrary".equals(processName)){
+        if ("com.shihoo.daemonlibrary".equals(processName)) {
             // 主进程 进行一些其他的操作
             Log.d("wsh-daemon", "启动主进程");
 
-        }else if ("com.shihoo.daemonlibrary:work".equals(processName)){
+        } else if ("com.shihoo.daemonlibrary:work".equals(processName)) {
             Log.d("wsh-daemon", "启动了工作进程");
-        }else if ("com.shihoo.daemonlibrary:watch".equals(processName)){
+        } else if ("com.shihoo.daemonlibrary:watch".equals(processName)) {
             // 这里要设置下看护进程所启动的主进程信息
             WatchProcessPrefHelper.mWorkServiceClass = MainWorkService.class;
             // 设置通知栏的UI
             ForegroundNotificationUtils.setResId(R.drawable.ic_launcher);
-            ForegroundNotificationUtils.setNotifyTitle("我是");
-            ForegroundNotificationUtils.setNotifyContent("渣渣辉");
+            ForegroundNotificationUtils.setNotifyTitle("Misstory陪你走过每一天");
+            ForegroundNotificationUtils.setNotifyContent("点击查看");
+            ForegroundNotificationUtils.setPackgeName(BuildConfig.APPLICATION_ID);
             Log.d("wsh-daemon", "启动了看门狗进程");
         }
 

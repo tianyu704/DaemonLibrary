@@ -20,8 +20,8 @@ public class ForegroundNotificationUtils {
     // 通知渠道的id
     private static String CHANNEL_ID = "MisstoryLive";
     private static int CHANNEL_POSITION = 1;
-    private static String NotifyTitle = "";
-    private static String NotifyContent = "Misstory陪你走过每一天";
+    private static String NotifyTitle = "Misstory陪你走过每一天";
+    private static String NotifyContent = "点击查看";
     private static int ResId = R.drawable.icon1;
     private static PendingIntent pendingIntent;
     private static String packgeName;
@@ -68,10 +68,10 @@ public class ForegroundNotificationUtils {
 
     //    private static String notifyNma = "主服务";
     public static void startForegroundNotification(Service service) {
-//        if (pendingIntent == null && packgeName != null) {
-//            Intent intent = service.getPackageManager().getLaunchIntentForPackage(packgeName);
-//            pendingIntent = PendingIntent.getActivity(service.getApplicationContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        }
+        if (pendingIntent == null && packgeName != null) {
+            Intent intent = service.getPackageManager().getLaunchIntentForPackage(packgeName);
+            pendingIntent = PendingIntent.getActivity(service.getApplicationContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //启动前台服务而不显示通知的漏洞已在 API Level 25 修复
             NotificationManager manager = (NotificationManager) service.getSystemService(Context.NOTIFICATION_SERVICE);
