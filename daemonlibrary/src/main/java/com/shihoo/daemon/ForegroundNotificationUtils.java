@@ -68,10 +68,10 @@ public class ForegroundNotificationUtils {
 
     //    private static String notifyNma = "主服务";
     public static void startForegroundNotification(Service service) {
-        if (pendingIntent == null && packgeName != null) {
-            Intent intent = service.getPackageManager().getLaunchIntentForPackage(packgeName);
-            pendingIntent = PendingIntent.getActivity(service.getApplicationContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        }
+//        if (pendingIntent == null && packgeName != null) {
+//            Intent intent = service.getPackageManager().getLaunchIntentForPackage(packgeName);
+//            pendingIntent = PendingIntent.getActivity(service.getApplicationContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //启动前台服务而不显示通知的漏洞已在 API Level 25 修复
             NotificationManager manager = (NotificationManager) service.getSystemService(Context.NOTIFICATION_SERVICE);
