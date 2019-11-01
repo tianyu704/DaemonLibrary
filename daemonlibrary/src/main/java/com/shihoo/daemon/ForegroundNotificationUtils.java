@@ -24,7 +24,7 @@ public class ForegroundNotificationUtils {
     private static String NotifyContent = "点击查看";
     private static int ResId = R.drawable.icon1;
     private static PendingIntent pendingIntent;
-    private static String packgeName;
+    private static String packgeName = "com.admqr.misstory";
 
     public static void setResId(@DrawableRes int resId) {
         ForegroundNotificationUtils.ResId = resId;
