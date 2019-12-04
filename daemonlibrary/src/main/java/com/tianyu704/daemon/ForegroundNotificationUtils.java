@@ -1,4 +1,4 @@
-package com.shihoo.daemon;
+package com.tianyu704.daemon;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -11,9 +11,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
+import android.util.Log;
 
 /**
- * Created by Shihoo.Wang 2019/7/11
+ * Created by tianyu704.Wang 2019/7/11
  * Email shihu.wang@bodyplus.cc  451082005@qq.com
  */
 public class ForegroundNotificationUtils {
@@ -96,6 +97,7 @@ public class ForegroundNotificationUtils {
                 builder.setContentIntent(pendingIntent);
             }
             service.startForeground(CHANNEL_POSITION, builder.build());//服务前台化只能使用startForeground()方法,不能使用 notificationManager.notify(1,notification); 这个只是启动通知使用的,使用这个方法你只需要等待几秒就会发现报错了
+            Log.d("tianyu704","startForeground");
         } else {
             //利用漏洞在 API Level 18 及以上的 Android 系统中，启动前台服务而不显示通知
 //            service.startForeground(Foreground_ID, new Notification());

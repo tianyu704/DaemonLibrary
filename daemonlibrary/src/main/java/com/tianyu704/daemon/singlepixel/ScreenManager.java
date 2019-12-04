@@ -1,4 +1,4 @@
-package com.shihoo.daemon.singlepixel;
+package com.tianyu704.daemon.singlepixel;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.content.Intent;
 import java.lang.ref.WeakReference;
 
 /**
- * Created by shihoo ON 2018/12/12.
+ * Created by tianyu704 ON 2018/12/12.
  * Email shihu.wang@bodyplus.cc 451082005@qq.com
  *
  * 对1像素Activity进行防止内存泄露的处理，新建一个ScreenManager类

@@ -1,4 +1,4 @@
-package com.shihoo.daemon.watch;
+package com.tianyu704.daemon.watch;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -9,12 +9,12 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.shihoo.daemon.DaemonEnv;
-import com.shihoo.daemon.ForegroundNotificationUtils;
-import com.shihoo.daemon.R;
+import com.tianyu704.daemon.DaemonEnv;
+import com.tianyu704.daemon.ForegroundNotificationUtils;
+import com.tianyu704.daemon.R;
 
 /**
- * Created by shihoo ON 2018/12/13.
+ * Created by tianyu704 ON 2018/12/13.
  * Email shihu.wang@bodyplus.cc 451082005@qq.com
  *
  * 后台播放无声音乐
@@ -49,7 +49,7 @@ public class PlayMusicService extends Service {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d("wsh-daemon", "开始后台播放音乐");
+                    Log.d("tianyu704", "开始后台播放音乐");
                     mMediaPlayer.start();
                 }
             }).start();
@@ -58,7 +58,7 @@ public class PlayMusicService extends Service {
 
     private void stopPlayMusic() {
         if (mMediaPlayer != null) {
-            Log.d("wsh-daemon", "关闭后台播放音乐");
+            Log.d("tianyu704", "关闭后台播放音乐");
             mMediaPlayer.stop();
         }
     }
@@ -67,10 +67,10 @@ public class PlayMusicService extends Service {
     public void onDestroy() {
         super.onDestroy();
         stopPlayMusic();
-        Log.d("wsh-daemon",  "----> stopPlayMusic ,停止服务");
+        Log.d("tianyu704",  "----> stopPlayMusic ,停止服务");
         // 重启自己
         if (!mNeedStop) {
-            Log.d("wsh-daemon",  "----> PlayMusic ,重启服务");
+            Log.d("tianyu704",  "----> PlayMusic ,重启服务");
             Intent intent = new Intent(getApplicationContext(), PlayMusicService.class);
             startService(intent);
         }

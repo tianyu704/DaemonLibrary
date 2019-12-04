@@ -1,4 +1,4 @@
-package com.shihoo.daemon.sync;
+package com.tianyu704.daemon.sync;
 
 import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;

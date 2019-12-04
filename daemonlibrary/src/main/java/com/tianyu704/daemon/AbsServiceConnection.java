@@ -1,11 +1,11 @@
-package com.shihoo.daemon;
+package com.tianyu704.daemon;
 
 import android.content.ComponentName;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
 /**
- * Created by shihoo ON 2018/12/14.
+ * Created by tianyu704 ON 2018/12/14.
  * Email shihu.wang@bodyplus.cc 451082005@qq.com
  *
  */

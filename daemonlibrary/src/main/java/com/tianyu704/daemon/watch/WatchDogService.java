@@ -1,4 +1,4 @@
-package com.shihoo.daemon.watch;
+package com.tianyu704.daemon.watch;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -23,9 +23,9 @@ import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
-import com.shihoo.daemon.AbsServiceConnection;
-import com.shihoo.daemon.DaemonEnv;
-import com.shihoo.daemon.ForegroundNotificationUtils;
+import com.tianyu704.daemon.AbsServiceConnection;
+import com.tianyu704.daemon.DaemonEnv;
+import com.tianyu704.daemon.ForegroundNotificationUtils;
 
 
 public class WatchDogService extends Service {
@@ -46,8 +46,8 @@ public class WatchDogService extends Service {
         }
     };
 
-    private void startBindWorkServices(){
-        if (WatchProcessPrefHelper.mWorkServiceClass!=null && isCanStartWatchDog) {
+    private void startBindWorkServices() {
+        if (WatchProcessPrefHelper.mWorkServiceClass != null && isCanStartWatchDog) {
             DaemonEnv.startServiceMayBind(WatchDogService.this, WatchProcessPrefHelper.mWorkServiceClass, mConnection);
             DaemonEnv.startServiceSafely(WatchDogService.this,
                     PlayMusicService.class);
@@ -59,11 +59,13 @@ public class WatchDogService extends Service {
     public void onCreate() {
         super.onCreate();
         isCanStartWatchDog = WatchProcessPrefHelper.getIsStartDaemon(this);
-        if (!isCanStartWatchDog){
+        Log.d("tianyu704", "watch dog service on create " + isCanStartWatchDog);
+        if (!isCanStartWatchDog) {
             stopSelf();
+        }else{
+            startRegisterReceiver();
+            ForegroundNotificationUtils.startForegroundNotification(this);
         }
-        startRegisterReceiver();
-        ForegroundNotificationUtils.startForegroundNotification(this);
     }
 
     @Override
@@ -126,10 +128,10 @@ public class WatchDogService extends Service {
     }
 
     private void onEnd() {
-        Log.d("wsh-daemon", "onEnd ----  搞事 + IsShouldStopSelf  ：" + isCanStartWatchDog);
-        if (isCanStartWatchDog){
-            DaemonEnv.startServiceSafely(WatchDogService.this,WatchProcessPrefHelper.mWorkServiceClass);
-            DaemonEnv.startServiceSafely(WatchDogService.this,WatchDogService.class);
+        Log.d("tianyu704", "onEnd ----  搞事 + IsShouldStopSelf  ：" + isCanStartWatchDog);
+        if (isCanStartWatchDog) {
+            DaemonEnv.startServiceSafely(WatchDogService.this, WatchProcessPrefHelper.mWorkServiceClass);
+            DaemonEnv.startServiceSafely(WatchDogService.this, WatchDogService.class);
         }
     }
 
@@ -154,9 +156,10 @@ public class WatchDogService extends Service {
     /**
      * 停止运行本服务,本进程
      */
-    private void stopService(){
+    private void stopService() {
+        Log.d("tianyu704", "stopService");
         isCanStartWatchDog = false;
-        WatchProcessPrefHelper.setIsStartSDaemon(this,false);
+        WatchProcessPrefHelper.setIsStartSDaemon(this, false);
         cancelJobAlarmSub();
         if (mConnection.mConnectedState) {
             unbindService(mConnection);
@@ -164,27 +167,27 @@ public class WatchDogService extends Service {
         exit();
     }
 
-    private void exit(){
+    private void exit() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 stopSelf();
             }
-        },2000);
+        }, 2000);
     }
 
 
-    private void startRegisterReceiver(){
-        if (stopBroadcastReceiver == null){
+    private void startRegisterReceiver() {
+        if (stopBroadcastReceiver == null) {
             stopBroadcastReceiver = new StopBroadcastReceiver();
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(DaemonEnv.ACTION_CANCEL_JOB_ALARM_SUB);
-            registerReceiver(stopBroadcastReceiver,intentFilter);
+            registerReceiver(stopBroadcastReceiver, intentFilter);
         }
     }
 
-    private void stopRegisterReceiver(){
-        if (stopBroadcastReceiver != null){
+    private void stopRegisterReceiver() {
+        if (stopBroadcastReceiver != null) {
             unregisterReceiver(stopBroadcastReceiver);
             stopBroadcastReceiver = null;
         }
@@ -192,7 +195,7 @@ public class WatchDogService extends Service {
 
     /**
      * 用于在不需要服务运行的时候取消 Job / Alarm / Subscription.
-     *
+     * <p>
      * 因 WatchDogService 运行在 :watch 子进程, 请勿在主进程中直接调用此方法.
      * 而是向 WakeUpReceiver 发送一个 Action 为 WakeUpReceiver.ACTION_CANCEL_JOB_ALARM_SUB 的广播.
      */
@@ -206,12 +209,12 @@ public class WatchDogService extends Service {
                 am.cancel(mPendingIntent);
             }
         }
-        if (mDisposable !=null && !mDisposable.isDisposed()){
+        if (mDisposable != null && !mDisposable.isDisposed()) {
             mDisposable.dispose();
         }
     }
 
-    class StopBroadcastReceiver extends BroadcastReceiver{
+    class StopBroadcastReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {

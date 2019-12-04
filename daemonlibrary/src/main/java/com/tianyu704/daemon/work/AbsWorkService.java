@@ -1,4 +1,4 @@
-package com.shihoo.daemon.work;
+package com.tianyu704.daemon.work;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -11,14 +11,14 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.shihoo.daemon.AbsServiceConnection;
-import com.shihoo.daemon.DaemonEnv;
-import com.shihoo.daemon.ForegroundNotificationUtils;
-import com.shihoo.daemon.singlepixel.ScreenReceiverUtil;
-import com.shihoo.daemon.watch.WatchDogService;
+import com.tianyu704.daemon.AbsServiceConnection;
+import com.tianyu704.daemon.DaemonEnv;
+import com.tianyu704.daemon.ForegroundNotificationUtils;
+import com.tianyu704.daemon.singlepixel.ScreenReceiverUtil;
+import com.tianyu704.daemon.watch.WatchDogService;
 
 /**
- * Created by shihoo ON 2018/12/12.
+ * Created by tianyu704 ON 2018/12/12.
  * Email shihu.wang@bodyplus.cc 451082005@qq.com
  *
  * 主要Service 用户继承该类用来处理自己业务逻辑
@@ -43,10 +43,11 @@ public abstract class AbsWorkService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d("tianyu704", needStartWorkService()+"AbsWorkService  onCreate 启动。。。。");
         if (!needStartWorkService()) {
             stopSelf();
         }else {
-            Log.d("wsh-daemon", "AbsWorkService  onCreate 启动。。。。");
+            Log.d("tianyu704", "AbsWorkService  onCreate 启动。。。。");
             startRegisterReceiver();
             createScreenListener();
             ForegroundNotificationUtils.startForegroundNotification(this);

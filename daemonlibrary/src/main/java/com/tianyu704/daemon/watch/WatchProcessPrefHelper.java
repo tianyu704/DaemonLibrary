@@ -1,12 +1,12 @@
-package com.shihoo.daemon.watch;
+package com.tianyu704.daemon.watch;
 
 import android.content.Context;
 
-import com.shihoo.daemon.work.AbsWorkService;
+import com.tianyu704.daemon.work.AbsWorkService;
 
 
 /**
- * Created by shihoo ON 2018/12/13.
+ * Created by tianyu704 ON 2018/12/13.
  * Email shihu.wang@bodyplus.cc 451082005@qq.com
  *
  * 用于多进程通讯的 SharedPreferences

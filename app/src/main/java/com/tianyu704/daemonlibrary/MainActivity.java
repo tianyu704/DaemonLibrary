@@ -1,4 +1,4 @@
-package com.shihoo.daemonlibrary;
+package com.tianyu704.daemonlibrary;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -10,10 +10,10 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
-import com.shihoo.daemon.DaemonEnv;
-import com.shihoo.daemon.IntentWrapper;
-import com.shihoo.daemon.watch.WatchProcessPrefHelper;
+import com.tianyu704.daemon.DaemonEnv;
+import com.tianyu704.daemon.IntentWrapper;
 
 public class MainActivity extends Activity {
 
@@ -24,6 +24,16 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Button start = findViewById(R.id.btn_start);
+        DaemonEnv.sendStartWorkBroadcast(this);
+        start.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+//                isCanStartWorkService = true;
+                SharedPreferencesUtil.getInstance(MainActivity.this).setIsCanStartWorkService(true);
+                DaemonEnv.startServiceSafely(MainActivity.this,MainWorkService.class);
+            }
+        },1000);
     }
 
     public void onClick(View v) {
@@ -34,7 +44,8 @@ public class MainActivity extends Activity {
                 v.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        isCanStartWorkService = true;
+//                        isCanStartWorkService = true;
+                        SharedPreferencesUtil.getInstance(MainActivity.this).setIsCanStartWorkService(true);
                         DaemonEnv.startServiceSafely(MainActivity.this,MainWorkService.class);
                     }
                 },1000);
@@ -48,7 +59,8 @@ public class MainActivity extends Activity {
                 value ++;
 //                buildNotify(this);
                 DaemonEnv.sendStopWorkBroadcast(this);
-                isCanStartWorkService = false;
+//                isCanStartWorkService = false;
+                SharedPreferencesUtil.getInstance(MainActivity.this).setIsCanStartWorkService(false);
                 break;
         }
     }
@@ -94,8 +106,8 @@ public class MainActivity extends Activity {
                     .setContentTitle("我是通知哦哦")//设置标题
                     .setContentText("我是通知内容..."+value)//设置内容
                     .setWhen(System.currentTimeMillis())//设置创建时间
-                    .setSmallIcon(com.shihoo.daemon.R.drawable.icon1)//设置状态栏图标
-                    .setLargeIcon(BitmapFactory.decodeResource(service.getResources(), com.shihoo.daemon.R.drawable.icon1))//设置通知栏图标
+                    .setSmallIcon(com.tianyu704.daemon.R.drawable.icon1)//设置状态栏图标
+                    .setLargeIcon(BitmapFactory.decodeResource(service.getResources(), com.tianyu704.daemon.R.drawable.icon1))//设置通知栏图标
                     .build();
             manager.notify(CHANNEL_POSITION,notification);
         }else {
@@ -103,8 +115,8 @@ public class MainActivity extends Activity {
                     .setContentTitle("我是通知哦哦")//设置标题
                     .setContentText("我是通知内容..."+value)//设置内容
                     .setWhen(System.currentTimeMillis())//设置创建时间
-                    .setSmallIcon(com.shihoo.daemon.R.drawable.icon1)//设置状态栏图标
-                    .setLargeIcon(BitmapFactory.decodeResource(service.getResources(), com.shihoo.daemon.R.drawable.icon1))//设置通知栏图标
+                    .setSmallIcon(com.tianyu704.daemon.R.drawable.icon1)//设置状态栏图标
+                    .setLargeIcon(BitmapFactory.decodeResource(service.getResources(), com.tianyu704.daemon.R.drawable.icon1))//设置通知栏图标
                     .build();
             manager.notify(CHANNEL_POSITION,notification);
         }

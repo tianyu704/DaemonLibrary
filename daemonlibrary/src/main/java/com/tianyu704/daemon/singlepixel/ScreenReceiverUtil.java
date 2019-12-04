@@ -1,4 +1,4 @@
-package com.shihoo.daemon.singlepixel;
+package com.tianyu704.daemon.singlepixel;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.content.IntentFilter;
 import android.util.Log;
 
 /**
- * Created by shihoo ON 2018/12/12.
+ * Created by tianyu704 ON 2018/12/12.
  * Email shihu.wang@bodyplus.cc 451082005@qq.com
  *
  * 对广播进行监听，封装为一个ScreenReceiverUtil类，进行锁屏解锁的广播动态注册监听
@@ -49,12 +49,12 @@ public class ScreenReceiverUtil {
                 if (mScreenManager != null) {
                     mScreenManager.startActivity();
                 }
-                Log.d("wsh-daemon", "打开了1像素Activity");
+                Log.d("tianyu704", "打开了1像素Activity");
             } else if (Intent.ACTION_USER_PRESENT.equals(action)) { // 解锁
                 if (mScreenManager != null) {
                     mScreenManager.finishActivity(); // 解锁
                 }
-                Log.d("wsh-daemon", "关闭了1像素Activity");
+                Log.d("tianyu704", "关闭了1像素Activity");
             }
         }
     }

@@ -1,13 +1,12 @@
-package com.shihoo.daemon.watch;
+package com.tianyu704.daemon.watch;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
-import com.shihoo.daemon.DaemonEnv;
-import com.shihoo.daemon.watch.WatchDogService;
-import com.shihoo.daemon.watch.WatchProcessPrefHelper;
+import com.tianyu704.daemon.DaemonEnv;
 
 public class WakeUpReceiver extends BroadcastReceiver {
 
@@ -22,7 +21,10 @@ public class WakeUpReceiver extends BroadcastReceiver {
     @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @Override
     public void onReceive(Context context, Intent intent) {
-        DaemonEnv.startServiceSafely(context, WatchDogService.class);
+        Log.d("tianyu704", "WakeUpReceiver receive " + intent.getAction());
+        if (WatchProcessPrefHelper.getIsStartDaemon(context)) {
+            DaemonEnv.startServiceSafely(context, WatchDogService.class);
+        }
     }
 
     public static class WakeUpAutoStartReceiver extends BroadcastReceiver {
@@ -30,7 +32,10 @@ public class WakeUpReceiver extends BroadcastReceiver {
         @SuppressLint("UnsafeProtectedBroadcastReceiver")
         @Override
         public void onReceive(Context context, Intent intent) {
-            DaemonEnv.startServiceSafely(context,WatchDogService.class);
+            Log.d("tianyu704", "WakeUpAutoStartReceiver receive " + intent.getAction());
+            if (WatchProcessPrefHelper.getIsStartDaemon(context)) {
+                DaemonEnv.startServiceSafely(context, WatchDogService.class);
+            }
         }
     }
 
@@ -39,7 +44,8 @@ public class WakeUpReceiver extends BroadcastReceiver {
         @SuppressLint("UnsafeProtectedBroadcastReceiver")
         @Override
         public void onReceive(Context context, Intent intent) {
-            WatchProcessPrefHelper.setIsStartSDaemon(context,true);
+            Log.d("tianyu704", "StartWatchReceiver receive " + intent.getAction());
+            WatchProcessPrefHelper.setIsStartSDaemon(context, true);
         }
     }
 }

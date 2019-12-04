@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.shihoo.daemonlibrary">
+    package="com.tianyu704.daemonlibrary">
 
     <application
-        android:name=".App"
+        android:name="com.tianyu704.daemonlibrary.App"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.tianyu704.daemonlibrary.MainActivity">
             <intent-filter>
 
                 <action android:name="android.intent.action.VIEW" />
@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".MainWorkService"
+        <service android:name="com.tianyu704.daemonlibrary.MainWorkService"
             />
         <!-- 注意 ： 看业务需求，工作Service是否要放在主进程还是work进程 ， 大部业务分放在主进程即可-->
         <!--android:process=":work"-->

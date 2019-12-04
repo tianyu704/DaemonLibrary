@@ -1,4 +1,4 @@
-package com.shihoo.daemonlibrary;
+package com.tianyu704.daemonlibrary;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.content.Context;
 import java.util.List;
 
 /**
- * Created by shihoo ON 2018/12/13.
+ * Created by tianyu704 ON 2018/12/13.
  * Email shihu.wang@bodyplus.cc 451082005@qq.com
  */
 public class ApkHelper {

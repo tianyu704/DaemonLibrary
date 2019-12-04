@@ -1,4 +1,4 @@
-package com.shihoo.daemon.singlepixel;
+package com.tianyu704.daemon.singlepixel;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,10 +13,10 @@ import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.shihoo.daemon.watch.WatchDogService;
+import com.tianyu704.daemon.watch.WatchDogService;
 
 /**
- * Created by shihoo ON 2018/12/12.
+ * Created by tianyu704 ON 2018/12/12.
  * Email shihu.wang@bodyplus.cc 451082005@qq.com
  *
  * 该Activity的View只要设置为1像素然后设置在Window对象上即可。在Activity的onDestroy周期中进行保活服务的存活判断从而唤醒服务。
@@ -44,7 +44,7 @@ public class SinglePixelActivity extends Activity {
     @Override
     protected void onDestroy() {
 //        if (!SystemUtils.isAppAlive(this, Constant.PACKAGE_NAME)) {
-        Log.d("wsh-daemon", " 1 像素Activity --- onDestroy");
+        Log.d("tianyu704", " 1 像素Activity --- onDestroy");
             Intent intentAlive = new Intent(this, WatchDogService.class);
             startService(intentAlive);
 //        }

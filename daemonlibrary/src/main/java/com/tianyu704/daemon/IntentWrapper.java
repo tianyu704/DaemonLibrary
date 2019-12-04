@@ -1,4 +1,4 @@
-package com.shihoo.daemon;
+package com.tianyu704.daemon;
 
 import android.app.Activity;
 import android.app.AlertDialog;

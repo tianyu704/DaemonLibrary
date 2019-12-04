@@ -1,4 +1,4 @@
-package com.shihoo.daemon.sync;
+package com.tianyu704.daemon.sync;
 
 /**
  * Created by shihu.wang on 2017/4/10.
@@ -12,9 +12,8 @@ import android.content.Context;
 import android.content.SyncResult;
 import android.os.Bundle;
 
-import com.shihoo.daemon.DaemonEnv;
-import com.shihoo.daemon.watch.WatchDogService;
-import com.shihoo.daemon.watch.WatchProcessPrefHelper;
+import com.tianyu704.daemon.DaemonEnv;
+import com.tianyu704.daemon.watch.WatchDogService;
 
 
 public class SyncAdapter extends AbstractThreadedSyncAdapter {
