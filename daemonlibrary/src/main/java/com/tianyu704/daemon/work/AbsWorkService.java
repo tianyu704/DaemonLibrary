@@ -43,7 +43,7 @@ public abstract class AbsWorkService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("tianyu704", needStartWorkService()+"AbsWorkService  onCreate 启动。。。。");
+        Log.d("tianyu704", needStartWorkService()+"   AbsWorkService  onCreate 启动。。。。");
         if (!needStartWorkService()) {
             stopSelf();
         }else {
@@ -190,6 +190,7 @@ public abstract class AbsWorkService extends Service {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.d("tianyu704", "StopBroadcastReceiver receive " + intent.getAction());
             // 停止业务
             stopService();
         }

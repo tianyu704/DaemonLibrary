@@ -103,6 +103,8 @@ public class PlayMusicService extends Service {
     }
 
     class StopBroadcastReceiver extends BroadcastReceiver {
+        public StopBroadcastReceiver() {
+        }
 
         @Override
         public void onReceive(Context context, Intent intent) {

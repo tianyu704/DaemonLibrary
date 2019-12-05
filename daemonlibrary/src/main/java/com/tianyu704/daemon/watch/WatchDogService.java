@@ -59,10 +59,10 @@ public class WatchDogService extends Service {
     public void onCreate() {
         super.onCreate();
         isCanStartWatchDog = WatchProcessPrefHelper.getIsStartDaemon(this);
-        Log.d("tianyu704", "watch dog service on create " + isCanStartWatchDog);
+        Log.d("tianyu704", "看门狗服务创建了 isCanStartWatchDog->" + isCanStartWatchDog);
         if (!isCanStartWatchDog) {
             stopSelf();
-        }else{
+        } else {
             startRegisterReceiver();
             ForegroundNotificationUtils.startForegroundNotification(this);
         }
@@ -156,8 +156,8 @@ public class WatchDogService extends Service {
     /**
      * 停止运行本服务,本进程
      */
-    private void stopService() {
-        Log.d("tianyu704", "stopService");
+    public void stopService() {
+        Log.d("tianyu704", "stopService ");
         isCanStartWatchDog = false;
         WatchProcessPrefHelper.setIsStartSDaemon(this, false);
         cancelJobAlarmSub();
@@ -214,11 +214,11 @@ public class WatchDogService extends Service {
         }
     }
 
-    class StopBroadcastReceiver extends BroadcastReceiver {
-
+    public static class StopBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            stopService();
+            Log.d("tianyu704", "接收到停止的广播。。。" + intent.getAction());
+//            stopService();
         }
     }
 }

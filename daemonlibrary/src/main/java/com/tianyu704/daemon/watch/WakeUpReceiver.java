@@ -22,9 +22,9 @@ public class WakeUpReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("tianyu704", "WakeUpReceiver receive " + intent.getAction());
-        if (WatchProcessPrefHelper.getIsStartDaemon(context)) {
+//        if (WatchProcessPrefHelper.getIsStartDaemon(context)) {
             DaemonEnv.startServiceSafely(context, WatchDogService.class);
-        }
+//        }
     }
 
     public static class WakeUpAutoStartReceiver extends BroadcastReceiver {
@@ -32,10 +32,10 @@ public class WakeUpReceiver extends BroadcastReceiver {
         @SuppressLint("UnsafeProtectedBroadcastReceiver")
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("tianyu704", "WakeUpAutoStartReceiver receive " + intent.getAction());
-            if (WatchProcessPrefHelper.getIsStartDaemon(context)) {
+            Log.d("tianyu704", "WakeUpAutoStartReceiver receive " + intent.getAction() + "   " + WatchProcessPrefHelper.getIsStartDaemon(context));
+//            if (WatchProcessPrefHelper.getIsStartDaemon(context)) {
                 DaemonEnv.startServiceSafely(context, WatchDogService.class);
-            }
+//            }
         }
     }
 
@@ -44,7 +44,7 @@ public class WakeUpReceiver extends BroadcastReceiver {
         @SuppressLint("UnsafeProtectedBroadcastReceiver")
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("tianyu704", "StartWatchReceiver receive " + intent.getAction());
+            Log.d("tianyu704", "接收到开启的广播。。。" + intent.getAction());
             WatchProcessPrefHelper.setIsStartSDaemon(context, true);
         }
     }
