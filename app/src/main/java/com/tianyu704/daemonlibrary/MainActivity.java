@@ -9,11 +9,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.tianyu704.daemon.DaemonEnv;
 import com.tianyu704.daemon.IntentWrapper;
+import com.tianyu704.daemon.watch.WatchProcessPrefHelper;
 
 public class MainActivity extends Activity {
 
@@ -25,31 +27,18 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button start = findViewById(R.id.btn_start);
-        DaemonEnv.sendStartWorkBroadcast(this);
-        start.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-//                isCanStartWorkService = true;
-                SharedPreferencesUtil.getInstance(MainActivity.this).setIsCanStartWorkService(true);
-                DaemonEnv.startServiceSafely(MainActivity.this,MainWorkService.class);
-            }
-        },1000);
+
+        WatchProcessPrefHelper.setIsStartSDaemon(MainActivity.this, true);
+        DaemonEnv.startServiceSafely(MainActivity.this, MainWorkService.class);
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_start:
 
-                DaemonEnv.sendStartWorkBroadcast(this);
-                v.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-//                        isCanStartWorkService = true;
-                        SharedPreferencesUtil.getInstance(MainActivity.this).setIsCanStartWorkService(true);
-                        DaemonEnv.startServiceSafely(MainActivity.this,MainWorkService.class);
-                    }
-                },1000);
-
+                WatchProcessPrefHelper.setIsStartSDaemon(MainActivity.this, true);
+                DaemonEnv.startServiceSafely(MainActivity.this, MainWorkService.class);
+                Log.d("tianyu704", "每 3 秒采集一次数据... count = " );
 //                buildNotify(this);
                 break;
             case R.id.btn_white:
@@ -60,7 +49,6 @@ public class MainActivity extends Activity {
 //                buildNotify(this);
                 DaemonEnv.sendStopWorkBroadcast(this);
 //                isCanStartWorkService = false;
-                SharedPreferencesUtil.getInstance(MainActivity.this).setIsCanStartWorkService(false);
                 break;
         }
     }

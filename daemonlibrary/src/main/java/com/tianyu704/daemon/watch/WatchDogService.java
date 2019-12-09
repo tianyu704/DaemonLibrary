@@ -42,6 +42,7 @@ public class WatchDogService extends Service {
 
         @Override
         public void onDisconnected(ComponentName name) {
+            Log.d("tianyu704","AbsServiceConnection onDisconnected");
             startBindWorkServices();
         }
     };
@@ -49,8 +50,8 @@ public class WatchDogService extends Service {
     private void startBindWorkServices() {
         if (WatchProcessPrefHelper.mWorkServiceClass != null && isCanStartWatchDog) {
             DaemonEnv.startServiceMayBind(WatchDogService.this, WatchProcessPrefHelper.mWorkServiceClass, mConnection);
-            DaemonEnv.startServiceSafely(WatchDogService.this,
-                    PlayMusicService.class);
+//            DaemonEnv.startServiceSafely(WatchDogService.this,
+//                    PlayMusicService.class);
         }
     }
 
@@ -214,11 +215,11 @@ public class WatchDogService extends Service {
         }
     }
 
-    public static class StopBroadcastReceiver extends BroadcastReceiver {
+    public class StopBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d("tianyu704", "接收到停止的广播。。。" + intent.getAction());
-//            stopService();
+            stopService();
         }
     }
 }

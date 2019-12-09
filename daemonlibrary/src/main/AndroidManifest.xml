@@ -32,13 +32,6 @@
             </intent-filter>
         </receiver>
 
-        <receiver
-            android:name="com.tianyu704.daemon.watch.WatchDogService$StopBroadcastReceiver"
-            android:process=":watch">
-            <intent-filter>
-                <action android:name="com.tianyu704.CANCEL_JOB_ALARM_SUB"/>
-            </intent-filter>
-        </receiver>
         <!-- 广播接收者  receiver 进程-->
         <receiver
             android:name="com.tianyu704.daemon.watch.WakeUpReceiver$WakeUpAutoStartReceiver"

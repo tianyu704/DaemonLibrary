@@ -6,6 +6,7 @@ import android.os.IBinder;
 import android.os.Messenger;
 import android.util.Log;
 
+import com.tianyu704.daemon.watch.WatchProcessPrefHelper;
 import com.tianyu704.daemon.work.AbsWorkService;
 
 import java.util.concurrent.TimeUnit;
@@ -32,7 +33,7 @@ public class MainWorkService extends AbsWorkService {
      */
     @Override
     public Boolean needStartWorkService() {
-        return SharedPreferencesUtil.getInstance(this).isCanStartWorkService();
+        return WatchProcessPrefHelper.getIsStartDaemon(this);
     }
 
     /**

@@ -77,11 +77,11 @@ public class ForegroundNotificationUtils {
             //启动前台服务而不显示通知的漏洞已在 API Level 25 修复
             NotificationManager manager = (NotificationManager) service.getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel Channel = new NotificationChannel(CHANNEL_ID, NotifyTitle, NotificationManager.IMPORTANCE_DEFAULT);
-            Channel.enableLights(true);//设置提示灯
+            Channel.enableLights(false);//设置提示灯
             Channel.setLightColor(Color.GREEN);//设置提示灯颜色
             Channel.setShowBadge(true);//显示logo
             Channel.setDescription("");//设置描述
-            Channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC); //设置锁屏可见 VISIBILITY_PUBLIC=可见
+            Channel.setLockscreenVisibility(Notification.VISIBILITY_SECRET); //设置锁屏可见 VISIBILITY_PUBLIC=可见
             Channel.enableVibration(false);
             Channel.setSound(null, null);
             manager.createNotificationChannel(Channel);
@@ -107,6 +107,7 @@ public class ForegroundNotificationUtils {
                     .setWhen(System.currentTimeMillis())//设置创建时间
                     .setSmallIcon(ResId)//设置状态栏图标
                     .setContentIntent(pendingIntent)
+                    .setSound(null)
                     .setLargeIcon(BitmapFactory.decodeResource(service.getResources(), ResId));//设置通知栏图标;
             if (pendingIntent != null) {
                 builder.setContentIntent(pendingIntent);

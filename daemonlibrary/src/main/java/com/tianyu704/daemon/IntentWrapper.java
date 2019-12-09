@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,8 @@ public class IntentWrapper {
     protected static final int ZTE = 116;
     //中兴 锁屏加速受保护应用
     protected static final int ZTE_GOD = 117;
+    //Oppo colorOS v5
+    protected static final int OPPO_OS5 = 118;
     
 //    protected static List<IntentWrapper> sIntentWrapperList;
 
@@ -127,6 +130,11 @@ public class IntentWrapper {
             Intent oppoIntent = new Intent();
             oppoIntent.setComponent(new ComponentName("com.coloros.safecenter", "com.coloros.safecenter.permission.startup.StartupAppListActivity"));
             sIntentWrapperList.add(new IntentWrapper(oppoIntent, OPPO));
+
+            //Oppo 自启动管理
+            Intent oppoOS5Intent = new Intent();
+            oppoOS5Intent.setComponent(new ComponentName("com.coloros.safecenter", "com.coloros.safecenter.startupapp.StartupAppListActivity"));
+            sIntentWrapperList.add(new IntentWrapper(oppoOS5Intent, OPPO_OS5));
 
             //Oppo 自启动管理(旧版本系统)
             Intent oppoOldIntent = new Intent();
@@ -207,6 +215,7 @@ public class IntentWrapper {
         if (reason == null) reason = "核心服务的持续运行";
         List<IntentWrapper> intentWrapperList = getIntentWrapperList(a);
         for (final IntentWrapper iw : intentWrapperList) {
+            Log.d("tianyu704",iw.intent.getComponent()+"---"+iw.doesActivityExists(a));
             //如果本机上没有能处理这个Intent的Activity，说明不是对应的机型，直接忽略进入下一次循环。
             if (!iw.doesActivityExists(a)) continue;
             switch (iw.type) {
@@ -315,6 +324,7 @@ public class IntentWrapper {
                 case LETV:
                 case XIAOMI:
                 case OPPO:
+                case OPPO_OS5:
                 case OPPO_OLD:
                     new AlertDialog.Builder(a)
                             .setCancelable(false)
@@ -434,6 +444,11 @@ public class IntentWrapper {
      * 安全地启动一个Activity
      */
     protected void startActivitySafely(Activity activityContext) {
-        try { activityContext.startActivity(intent); } catch (Exception e) { e.printStackTrace(); }
+        try { activityContext.startActivity(intent); } catch (Exception e) {
+            Intent intent = new Intent();
+            intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.setData(Uri.parse("package:" + activityContext.getPackageName()));
+            activityContext.startActivity(intent);
+            e.printStackTrace(); }
     }
 }

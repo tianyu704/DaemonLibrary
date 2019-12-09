@@ -89,8 +89,6 @@ public final class DaemonEnv {
         Log.d("tianyu704", "发送停止广播。。。。");
         // 以广播的形式通知所有进程终止
         Intent intent = new Intent(ACTION_CANCEL_JOB_ALARM_SUB);
-        //第一个参数为包的路径，第二个参数为类名
-        intent.setComponent(new ComponentName("com.tianyu704.daemonlibrary", "com.tianyu704.daemon.watch.WatchDogService$StopBroadcastReceiver"));
         context.sendBroadcast(intent);
     }
 
